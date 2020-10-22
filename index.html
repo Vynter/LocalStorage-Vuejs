@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+
+        <input type="text" v-model="user" v-on:keydown.enter="addUser"> <button v-on:click.prevent="addUser">
+            add</button>
+        <ul>
+            <li v-for="(user, index) in users" :key="index" :id=index>{{user}}
+                <button v-on:click="delUser(index)">x</button>
+
+        </ul>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+
+                users: ["Aamine", "Bkhaled", "Cabdou", 'Dtrincao', 'Ekepa', 'Fkoukou'],
+                user: ''
+            },
+            methods: {
+                delUser: function (e) {
+                    // console.log(e);
+                    this.users.splice(e, 1)
+                    this.sync()
+
+                },
+                addUser: function () {
+                    if (this.user) {
+                        this.users.push(this.user)
+                        this.user = ""
+                        this.sync()
+                    }
+                },
+                sync() {
+                    localStorage.setItem('users', JSON.stringify(this.users))
+                }
+            },
+            watch: {
+            },
+            computed: {
+            },
+            created() {
+                // this.users = (localStorage.getItem('users')) ? JSON.parse(localStorage.getItem('users')) : [] astuce
+                if (localStorage.getItem('users')) {
+                    this.users = JSON.parse(localStorage.getItem('users'));
+                } else {
+                    this.users = []
+                }
+
+            },
+            mounted() {
+
+            },
+
+        });
+    </script>
+</body>
+
+</html>
