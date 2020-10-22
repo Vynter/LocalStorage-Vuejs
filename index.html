@@ -17,11 +17,15 @@
     <div id="app">
 
 
-        <input type="text" v-model="user" v-on:keydown.enter="addUser"> <button v-on:click.prevent="addUser">
+        <input type="text" v-model="user" v-on:keydown.enter="addUser"><button v-if="key==-1"
+            v-on:click.prevent="addUser">
             add</button>
+        <button v-else v-on:click.prevent="editUser">
+            Modifier</button>
         <ul>
             <li v-for="(user, index) in users" :key="index" :id=index>{{user}}
                 <button v-on:click="delUser(index)">x</button>
+                <button v-on:click="updatelUser(index)">edit</button>
 
         </ul>
     </div>
@@ -34,27 +38,45 @@
             data: {
 
                 users: ["Aamine", "Bkhaled", "Cabdou", 'Dtrincao', 'Ekepa', 'Fkoukou'],
-                user: ''
+                user: '',
+                key: -1
+
             },
             methods: {
                 delUser: function (e) {
                     // console.log(e);
                     this.users.splice(e, 1)
-                    this.sync()
+                    // this.sync()
 
                 },
                 addUser: function () {
                     if (this.user) {
                         this.users.push(this.user)
                         this.user = ""
-                        this.sync()
+                        // this.sync()
                     }
                 },
+                editUser: function () {
+                    if (this.user) {
+                        this.users.splice(this.key, 1, this.user)
+                        this.user = ''
+                    }
+                },
+                /*
                 sync() {
                     localStorage.setItem('users', JSON.stringify(this.users))
+                },*/
+                updatelUser: function (i) {
+                    this.key = i
+                    this.user = this.users[i]
+
+
                 }
             },
             watch: {
+                users() {
+                    localStorage.setItem('users', JSON.stringify(this.users))
+                }
             },
             computed: {
             },
