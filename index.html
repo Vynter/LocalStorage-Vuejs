@@ -65,6 +65,8 @@
                     if (this.user) {
                         this.users.splice(this.key, 1, this.user)
                         this.user = ''
+
+                        this.key = -1;
                     }
                 },
                 /*
@@ -74,6 +76,7 @@
                 updatelUser: function (i) {
                     this.key = i
                     this.user = this.users[i]
+
 
 
                 }
