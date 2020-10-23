@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -16,10 +16,11 @@
 </head>
 
 <body>
-    <div id="app" class="container">
 
+    <div id="app" class="container">
+        <h1 class="text-center mt-5">To Do List v2</h1>
         <form action="" class="form-group mt-5">
-            <label for="">Tache</label>
+            <label for="" style="font-weight: bolder;text-decoration: underline;">Task :</label>
             <input type="text" v-model="user" class="form-control" v-on:keydown.enter="addUser">
             <button v-if="key==-1" v-on:click.prevent="addUser" class="btn btn-outline-primary mt-2">add</button>
             <button v-else v-on:click.prevent="editUser" class="btn btn-outline-primary mt-2">Modifier</button>
@@ -29,7 +30,7 @@
                 :key="index" :id=index>{{user}}
                 <span class="d-print-inline-block">
                     <button class="btn btn-danger mt-2" v-on:click="delUser(index)">X</button>
-                    <button class="btn btn-outline-primary mt-2" v-on:click="updatelUser(index)">-</button>
+                    <button class="btn btn-primary mt-2" v-on:click="updatelUser(index)">-</button>
                 </span>
 
         </ul>
@@ -42,7 +43,7 @@
             el: '#app',
             data: {
 
-                users: ["Aamine", "Bkhaled", "Cabdou", 'Dtrincao', 'Ekepa', 'Fkoukou'],
+                users: [],
                 user: '',
                 key: -1
 
